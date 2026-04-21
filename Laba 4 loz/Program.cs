@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Laba4Loz
 {
-    // Модель данных
     public record Note(int Id, string Title, string Text, DateTime CreatedAt);
 
     public class Program
@@ -15,8 +14,7 @@ namespace Laba4Loz
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
-            // Minimal API - no MVC controllers required for this lab
+            
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 

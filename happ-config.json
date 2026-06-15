@@ -53,7 +53,7 @@
               {
                 "encryption": "none",
                 "flow": "xtls-rprx-vision",
-                "id": "c5ea5331-2480-4dfa-870a-353f6092a0c5"
+                "id": "YOUR-UUID-HERE"
               }
             ]
           }
@@ -82,7 +82,7 @@
               {
                 "encryption": "none",
                 "flow": "xtls-rprx-vision",
-                "id": "c5ea5331-2480-4dfa-870a-353f6092a0c5"
+                "id": "YOUR-UUID-HERE"
               }
             ]
           }

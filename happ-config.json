@@ -1,0 +1,150 @@
+{
+  "dns": {
+    "queryStrategy": "UseIP",
+    "servers": [
+      "1.1.1.1",
+      "1.0.0.1"
+    ]
+  },
+  "inbounds": [
+    {
+      "listen": "127.0.0.1",
+      "port": 10808,
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": true
+      },
+      "sniffing": {
+        "destOverride": ["http", "tls", "quic"],
+        "enabled": true,
+        "routeOnly": false
+      },
+      "tag": "socks"
+    },
+    {
+      "listen": "127.0.0.1",
+      "port": 10809,
+      "protocol": "http",
+      "settings": {
+        "allowTransparent": false
+      },
+      "sniffing": {
+        "destOverride": ["http", "tls", "quic"],
+        "enabled": true,
+        "routeOnly": false
+      },
+      "tag": "http"
+    }
+  ],
+  "log": {
+    "loglevel": "warning",
+    "dnsLog": false
+  },
+  "outbounds": [
+    {
+      "protocol": "vless",
+      "settings": {
+        "vnext": [
+          {
+            "address": "81.163.20.48",
+            "port": 443,
+            "users": [
+              {
+                "encryption": "none",
+                "flow": "xtls-rprx-vision",
+                "id": "c5ea5331-2480-4dfa-870a-353f6092a0c5"
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "realitySettings": {
+          "fingerprint": "chrome",
+          "publicKey": "juHmDaF1gigyJOQkMCgEiZ1TgRbCZalWU8_MgvTVYTk",
+          "serverName": "mskselamazon.pidoras-dns.xyz"
+        },
+        "security": "reality",
+        "tcpSettings": {}
+      },
+      "tag": "proxy"
+    },
+    {
+      "protocol": "vless",
+      "settings": {
+        "vnext": [
+          {
+            "address": "85.192.48.85",
+            "port": 443,
+            "users": [
+              {
+                "encryption": "none",
+                "flow": "xtls-rprx-vision",
+                "id": "c5ea5331-2480-4dfa-870a-353f6092a0c5"
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "realitySettings": {
+          "fingerprint": "chrome",
+          "publicKey": "ivuKUtjVz2M1cnnPmg0glwh1CmMJjdlyonkK8c5H03A",
+          "serverName": "nexusbattles.pidoras-dns.xyz"
+        },
+        "security": "reality",
+        "tcpSettings": {}
+      },
+      "tag": "amazon"
+    },
+    {
+      "protocol": "freedom",
+      "tag": "direct"
+    },
+    {
+      "protocol": "blackhole",
+      "tag": "block"
+    }
+  ],
+  "routing": {
+    "domainMatcher": "hybrid",
+    "domainStrategy": "IPIfNonMatch",
+    "rules": [
+      {
+        "domain": [
+          "domain:supercell.com",
+          "domain:supercell.io",
+          "domain:brawlstarsgame.com",
+          "domain:supercellid.com",
+          "keyword:brawlstars",
+          "keyword:assets",
+          "bsd.meowfox.net",
+          "bsdtest.meowfox.net"
+        ],
+        "outboundTag": "proxy"
+      },
+      {
+        "network": "tcp,udp",
+        "outboundTag": "proxy",
+        "port": "9339"
+      },
+      {
+        "domain": [
+          "dns.nullsproxy.com"
+        ],
+        "outboundTag": "direct"
+      },
+      {
+        "network": "udp",
+        "outboundTag": "amazon"
+      },
+      {
+        "network": "tcp",
+        "outboundTag": "direct"
+      }
+    ]
+  }
+}
